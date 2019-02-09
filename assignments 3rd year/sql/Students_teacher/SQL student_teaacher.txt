@@ -1,0 +1,6 @@
+create table students(
+	roll number(3),
+	sname varchar2(25) check(sname like '[a-d]%'),
+	course varchar2(3),
+	year number(4)
+)

@@ -1,0 +1,253 @@
+SQL> create table students (
+  2   roll number(3) primary key,
+  3   sname varchar2(20),
+  4   course varchar2(5),
+  5   yr  number(4)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> desc students;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ------------------------
+ ROLL                                      NOT NULL NUMBER(3)
+ SNAME                                              VARCHAR2(20)
+ COURSE                                             VARCHAR2(5)
+ YR                                                 NUMBER(4)
+
+SQL> 
+SQL> insert into students values (1,  'Chloe',   'BSc',  1);
+
+1 row created.
+
+SQL> insert into students values (2,  'Alice',   'BCom', 3);
+
+1 row created.
+
+SQL> insert into students values (3,  'Dylan',   'MSc',  1);
+
+1 row created.
+
+SQL> insert into students values (4,  'Ben',    'BA',  2);
+
+1 row created.
+
+SQL> insert into students values (5,  'Alexander',  'BCA',  1);
+
+1 row created.
+
+SQL> insert into students values (6,  'Cameron',   'MSc',  2);
+
+1 row created.
+
+SQL> insert into students values (7,  'Dakota',   'BSc',  3);
+
+1 row created.
+
+SQL> insert into students values (8,  'Blake',   'BA',  1);
+
+1 row created.
+
+SQL> insert into students values (9,  'Dominic',   'MSc',  2);
+
+1 row created.
+
+SQL> insert into students values (10,  'Alex',   'BBA',  3);
+
+1 row created.
+
+SQL> 
+SQL> select * from students;
+
+      ROLL SNAME                COURS         YR
+---------- -------------------- ----- ----------
+         1 Chloe                BSc            1
+         2 Alice                BCom           3
+         3 Dylan                MSc            1
+         4 Ben                  BA             2
+         5 Alexander            BCA            1
+         6 Cameron              MSc            2
+         7 Dakota               BSc            3
+         8 Blake                BA             1
+         9 Dominic              MSc            2
+        10 Alex                 BBA            3
+
+10 rows selected.
+
+SQL> 
+SQL> create table teacher (
+  2   tid  number(3) primary key,
+  3   tname varchar2(30),
+  4   code varchar2(2)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> insert into teacher values (1, 'Pratik Ghosh',   'PG');
+
+1 row created.
+
+SQL> insert into teacher values (2, 'Ashok Mukherjee',   'AM');
+
+1 row created.
+
+SQL> insert into teacher values (3, 'Kabir Pal',    'KP');
+
+1 row created.
+
+SQL> insert into teacher values (4, 'Srestha Laha',   'SL');
+
+1 row created.
+
+SQL> insert into teacher values (5, 'Mousumi Nag',    'MN');
+
+1 row created.
+
+SQL> insert into teacher values (6, 'Koushik Chakraborty',  'KC');
+
+1 row created.
+
+SQL> insert into teacher values (7, 'Rathin Halder',   'RH');
+
+1 row created.
+
+SQL> insert into teacher values (8, 'Soumo Sen',    'SS');
+
+1 row created.
+
+SQL> insert into teacher values (9, 'Sayantan Kundu',   'SK');
+
+1 row created.
+
+SQL> insert into teacher values (10, 'Soumik Debnath',   'SD');
+
+1 row created.
+
+SQL> 
+SQL> select * from teacher;
+
+       TID TNAME                          CO
+---------- ------------------------------ --
+         1 Pratik Ghosh                   PG
+         2 Ashok Mukherjee                AM
+         3 Kabir Pal                      KP
+         4 Srestha Laha                   SL
+         5 Mousumi Nag                    MN
+         6 Koushik Chakraborty            KC
+         7 Rathin Halder                  RH
+         8 Soumo Sen                      SS
+         9 Sayantan Kundu                 SK
+        10 Soumik Debnath                 SD
+
+10 rows selected.
+
+SQL> create table attends (
+  2   roll number(3) references students on delete cascade,
+  3   tid  number(3) references teacher on delete cascade,
+  4   subject varchar2(20),
+  5   dt  date
+  6  );
+
+Table created.
+
+SQL> 
+SQL> desc attends;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL                                               NUMBER(3)
+ TID                                                NUMBER(3)
+ SUBJECT                                            VARCHAR2(20)
+ DT                                                 DATE
+
+SQL> 
+SQL> insert into attends values (3, 1, 'Data Structure',   '19-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (9, 1, 'Data Structure',   '19-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (2, 1, 'Data Structure',   '19-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (3, 1, 'Visual Basic',    '20-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (9, 1, 'Visual Basic',    '20-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (4, 1, 'Visual Basic',    '20-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (2, 3, 'Operating System',   '20-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (8, 3, 'Operating System',   '20-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (6, 4, 'Computer Networking',  '21-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (8, 4, 'Computer Networking',  '21-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (4, 5, 'Mathematical Methods',  '21-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (7, 5, 'Mathematical Methods',  '21-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (5, 6, 'Theory of Relativity',  '19-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (2, 6, 'Theory of Relativity',  '19-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (1, 7, 'Computer Security',   '15-Feb-2019');
+
+1 row created.
+
+SQL> insert into attends values (6, 7, 'Computer Security',   '15-Feb-2019');
+
+1 row created.
+
+SQL> select * from attends;
+
+      ROLL        TID SUBJECT              DT
+---------- ---------- -------------------- ---------
+         3          1 Data Structure       19-FEB-19
+         9          1 Data Structure       19-FEB-19
+         2          1 Data Structure       19-FEB-19
+         3          1 Visual Basic         20-FEB-19
+         9          1 Visual Basic         20-FEB-19
+         4          1 Visual Basic         20-FEB-19
+         2          3 Operating System     20-FEB-19
+         8          3 Operating System     20-FEB-19
+         6          4 Computer Networking  21-FEB-19
+         8          4 Computer Networking  21-FEB-19
+         4          5 Mathematical Methods 21-FEB-19
+
+      ROLL        TID SUBJECT              DT
+---------- ---------- -------------------- ---------
+         7          5 Mathematical Methods 21-FEB-19
+         5          6 Theory of Relativity 19-FEB-19
+         2          6 Theory of Relativity 19-FEB-19
+         1          7 Computer Security    15-FEB-19
+         6          7 Computer Security    15-FEB-19
+
+16 rows selected.

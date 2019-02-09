@@ -1,0 +1,39 @@
+create table employee(
+	e_id varchar2(5) primary key,
+	e_name varchar2(25) check(e_name not like 'a%' and e_name not like 'A%' and e_name not like 'd%' or e_name not like 'D%'),
+	salary number check(salary>10000)
+);
+insert into employee values('e01','Rajib Mal',40000);
+insert into employee values('e02','Narendra Modi',45000);
+insert into employee values('e03','Vinod Kamli',50000);
+insert into employee values('e04','Shaun Marsh',35000);
+insert into employee values('e05','Steve Jobes',32000);
+insert into employee values('e06','Peter Galvin',65000);
+insert into employee values('e07','Komal Pandey',35000);
+insert into employee values('e08','Brett Lee',25000);
+insert into employee values('e09','John Cena',55000);
+insert into employee values('e10','Jame Thomson',15000);
+insert into employee values('e11','Mathew Hayden',23000);
+create table dept(
+	d_id varchar2(5) primary key,
+	d_name varchar2(25),
+	manager_id varchar(5),
+	floor_id number(2) check(floor_id>0 and floor_id<21)
+);
+insert into dept values('d01','Administration','e02',2);
+insert into dept values('d02','Production','e06',10);
+insert into dept values('d03','Reseach and Development','e01',15);
+insert into dept values('d04','Marketing','e03',5);
+insert into dept values('d05','Human Resource','e04',8);
+insert into dept values('d06','Accounts','e05',12);
+create table works(
+	e_id varchar2(5) references employee on delete cascade,
+	d_id varchar2(5) references dept on delete cascade,
+	primary key(e_id,d_id)
+);
+insert into works values('e11','d03');
+insert into works values('e10','d01');
+insert into works values('e08','d04');
+insert into works values('e09','d05');
+insert into works values('e07','d06');
+insert into works values('e04','d02');
