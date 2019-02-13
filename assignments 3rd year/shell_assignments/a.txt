@@ -1,0 +1,93 @@
+declare -a arr=( 92 34 52 67 24 )
+size=4
+i=0
+echo ${arr[@]}
+while [ $i -lt $size ];do
+	n=`expr $size - $i`
+	j=0
+	#echo ${arr[@]}
+	while [ $j -lt $n ];do
+		next=`echo "$j+1"|bc`
+	       	if [ ${arr[$j]} -gt ${arr[$next]} ];then
+			t=${arr[$next]}
+	 		arr[$next]=${arr[$j]}
+			arr[$j]=$t
+		fi
+		j=`expr $j + 1`
+		#echo ${arr[@]}
+	done
+	#echo end
+	#echo ${arr[@]}
+	i=`expr $i + 1`
+	#echo ${arr[@]}
+done
+echo ${arr[@]}
+if [ -e $1 -a -r $1 ];then
+	cat $1 > $2
+	echo "Successfully copied $1 to $2"
+fi
+declare arr=( 65 37 140 35 92 687 3 25 88 408 )
+echo ${arr[@]}
+n=10
+i=1
+while [ $i -lt $n ];do
+	val=${arr[$i]}
+	j=`expr $i - 1`
+	index=$i
+	while [ $val -lt ${arr[$j]} -a $j -ge 0 ];do
+		arr[$j+1]=${arr[$j]}
+		index=$j
+		j=`expr $j - 1`
+	done
+	arr[$index]=$val
+	i=`expr $i + 1`
+done
+echo ${arr[@]}
+mod()
+{
+	if (( $(echo "$1<0"|bc) ));then
+		#echo "This is negative"
+		echo "($1*-1)+0.00"|bc
+	else
+		echo "$1+0.00"|bc
+	fi
+}
+#clear
+echo "Enter the coordinates "
+echo ------------------------
+echo First coordinate
+read x1
+read y1
+echo Second coordinate
+read x2
+read y2
+echo Third coordinate
+read x3
+read y3
+area=`echo "0.5*($x1*($y2-$y3)+$x2*($y3-$y1)+$x3*($y1-$y2))"|bc`
+#try=`echo 21*-1|bc`
+area=$(mod $area)
+#area=`echo "$(mod $area)+0.00"|bc`
+#echo "$area+0.00"|bc
+if (( $(echo "$area>0"|bc) ));then
+	echo Triangle can be formed with the coordinates
+else
+	echo Triangle can not be formed with the cordinates
+fi
+echo -n "Enter a string to check: "
+read str
+len=`echo -n $str | wc -c`
+len=`expr $len`
+i=1
+size=`expr $len / 2`
+while [ $i -le $size ]; do
+	j=`echo $str | cut -c $i`
+	k=`echo $str | cut -c $len`
+	if [ $j != $k ];then
+		echo "String is not Palindrome"
+		exit
+	fi
+	i=`expr $i + 1`
+	len=`expr $len - 1`
+done
+echo "String is Palindrome"
